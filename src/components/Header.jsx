@@ -1,18 +1,25 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react'; // Agregamos useContext
 import { Link, useNavigate } from 'react-router-dom';
+import { CartContext } from '../context/CartContext'; // Importamos el contexto
 
 export default function Header() {
-  // Forma muy clásica de guardar lo que el usuario escribe
   const [busqueda, setBusqueda] = useState('');
   const navigate = useNavigate();
+  
+  // Extraemos el carrito de nuestro contexto global
+  const { carrito } = useContext(CartContext);
+  
+  // Calculamos cuántos productos hay en total sumando las cantidades
+  let totalItems = 0;
+  for (let i = 0; i < carrito.length; i++) {
+    totalItems = totalItems + carrito[i].cantidad;
+  }
   
   const manejarBusqueda = (evento) => {
     const texto = evento.target.value;
     setBusqueda(texto); 
-    
-    // Un if/else tradicional en vez de condicionales cortos
     if (texto !== '') {
-      navigate('/?search=' + texto); // Concatenación clásica
+      navigate('/?search=' + texto);
     } else {
       navigate('/');
     }
@@ -26,7 +33,6 @@ export default function Header() {
           LUXE.
         </Link>
 
-        {/* Buscador visual */}
         <div className="hidden md:flex flex-1 max-w-md mx-8 relative">
           <input
             type="text"
@@ -38,13 +44,19 @@ export default function Header() {
           <span className="absolute right-3 top-2 text-gray-400">🔍</span>
         </div>
 
-        {/* Íconos */}
         <div className="flex items-center gap-5">
           <button className="text-gray-600 hover:text-blue-600 transition-colors">🤍</button>
+          
           <button className="text-gray-600 hover:text-blue-600 relative transition-colors">
             🛒
-            <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center">0</span>
+            {/* Si hay productos, mostramos el circulito rojo con el total */}
+            {totalItems > 0 && (
+              <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center">
+                {totalItems}
+              </span>
+            )}
           </button>
+          
           <div className="w-8 h-8 bg-gray-200 rounded-full overflow-hidden border border-gray-300">
             <img src="https://ui-avatars.com/api/?name=User&background=random" alt="Perfil" />
           </div>
