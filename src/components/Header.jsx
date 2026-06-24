@@ -47,15 +47,15 @@ export default function Header() {
         <div className="flex items-center gap-5">
           <button className="text-gray-600 hover:text-blue-600 transition-colors">🤍</button>
           
-          <button className="text-gray-600 hover:text-blue-600 relative transition-colors">
+          {/* Reemplazamos el <button> por un <Link to="/cart"> */}
+          <Link to="/cart" className="text-gray-600 hover:text-blue-600 relative transition-colors">
             🛒
-            {/* Si hay productos, mostramos el circulito rojo con el total */}
             {totalItems > 0 && (
               <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center">
                 {totalItems}
               </span>
             )}
-          </button>
+          </Link>
           
           <div className="w-8 h-8 bg-gray-200 rounded-full overflow-hidden border border-gray-300">
             <img src="https://ui-avatars.com/api/?name=User&background=random" alt="Perfil" />
