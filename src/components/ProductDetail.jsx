@@ -1,16 +1,28 @@
+import { useContext } from 'react';
+import { CartContext } from '../context/CartContext';
+
 export default function ProductDetail({ product }) {
+  // 1. Nos conectamos al contexto para traer la función de agregar
+  const { agregarAlCarrito } = useContext(CartContext);
+
+  // 2. Función clásica para manejar el clic y (opcionalmente) dar feedback
+  const manejarClick = () => {
+    agregarAlCarrito(product);
+    // Un pequeño aviso tradicional para que el usuario sepa que funcionó
+    alert('¡' + product.title + ' se añadió al carrito!'); 
+  };
+
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col md:flex-row">
-      {/* Contenedor de la Imagen (Ocupa la mitad en PC) */}
+      
       <div className="md:w-1/2 p-8 flex justify-center items-center bg-white">
         <img 
           src={product.image} 
           alt={product.title} 
-          className="max-h-100 object-contain hover:scale-105 transition-transform duration-300"
+          className="max-h-[400px] object-contain hover:scale-105 transition-transform duration-300"
         />
       </div>
 
-      {/* Contenedor de la Información (Ocupa la otra mitad en PC) */}
       <div className="md:w-1/2 p-8 md:p-12 bg-gray-50 flex flex-col justify-center">
         <span className="text-sm font-bold text-blue-600 uppercase tracking-widest mb-2">
           {product.category}
@@ -32,7 +44,11 @@ export default function ProductDetail({ product }) {
           {product.description}
         </p>
 
-        <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-xl transition-colors shadow-lg shadow-blue-200">
+        {/* 3. Conectamos la función al botón usando onClick */}
+        <button 
+          onClick={manejarClick}
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-xl transition-colors shadow-lg shadow-blue-200"
+        >
           Añadir al carrito
         </button>
       </div>
