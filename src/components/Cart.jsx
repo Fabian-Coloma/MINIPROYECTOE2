@@ -3,16 +3,14 @@ import { Link } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
 
 export default function Cart() {
-  const { carrito } = useContext(CartContext);
+  // Extraemos también la función de eliminar
+  const { carrito, eliminarDelCarrito } = useContext(CartContext);
 
-  // Calculamos el total a pagar de forma tradicional
   let totalPagar = 0;
   for (let i = 0; i < carrito.length; i++) {
-    // Multiplicamos el precio del producto por su cantidad
     totalPagar = totalPagar + (carrito[i].price * carrito[i].cantidad);
   }
 
-  // Si no hay productos, mostramos un mensaje amigable
   if (carrito.length === 0) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
@@ -26,14 +24,12 @@ export default function Cart() {
     );
   }
 
-  // Si hay productos, mostramos la lista y el total
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <h1 className="text-3xl font-bold text-gray-900 mb-8">Tu Carrito de Compras</h1>
       
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8">
         
-        {/* Lista de productos */}
         {carrito.map((producto) => (
           <div key={producto.id} className="flex flex-col md:flex-row items-center justify-between border-b border-gray-100 py-6 last:border-0 gap-4">
             
@@ -46,14 +42,24 @@ export default function Cart() {
               </div>
             </div>
 
-            <div className="text-xl font-bold text-gray-900 w-full md:w-auto text-right">
-              ${(producto.price * producto.cantidad).toFixed(2)}
+            {/* Contenedor del precio y el botón de eliminar */}
+            <div className="flex flex-col items-end w-full md:w-auto gap-2">
+              <div className="text-xl font-bold text-gray-900">
+                ${(producto.price * producto.cantidad).toFixed(2)}
+              </div>
+              
+              {/* Botón rojo para eliminar que llama a la función con el ID del producto */}
+              <button 
+                onClick={() => eliminarDelCarrito(producto.id)}
+                className="text-red-500 hover:text-red-700 text-sm font-medium transition-colors"
+              >
+                Eliminar producto
+              </button>
             </div>
 
           </div>
         ))}
         
-        {/* Resumen final */}
         <div className="mt-8 pt-8 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center gap-6">
           <span className="text-xl font-bold text-gray-600">Total a pagar:</span>
           <span className="text-4xl font-black text-gray-900">
