@@ -31,7 +31,7 @@ El proyecto cumple con los requerimientos solicitados en la rúbrica y añade fu
 
 ---
 
-## 📁 Estructura del Proyecto
+## 📁 Estructura del Proyecto.
 El código se encuentra organizado de la siguiente manera dentro de la carpeta `src`:
 - `/components`: Componentes visuales y reutilizables de la app (`Header`, `Footer`, `ProductCard`, `Cart`, etc.).
 - `/context`: Proveedores de estado global para la lógica del Carrito y de Favoritos.
