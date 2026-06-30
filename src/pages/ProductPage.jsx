@@ -4,7 +4,7 @@ import axios from 'axios';
 import ProductDetail from '../components/ProductDetail';
 
 export default function ProductPage() {
-  // useParams extrae el ":id" de la URL que definimos en App.jsx
+  
   const { id } = useParams(); 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -14,7 +14,7 @@ export default function ProductPage() {
     const fetchProduct = async () => {
       try {
         setLoading(true);
-        // Consumiendo el segundo endpoint de la rúbrica
+        
         const response = await axios.get(`https://fakestoreapi.com/products/${id}`);
         setProduct(response.data);
         setError(null);
@@ -49,7 +49,7 @@ export default function ProductPage() {
       <Link to="/" className="text-gray-500 hover:text-gray-900 font-medium mb-8 inline-block transition-colors">
         ← Volver al catálogo
       </Link>
-      {/* Le pasamos los datos del producto al componente visual */}
+   
       <ProductDetail product={product} /> 
     </div>
   );

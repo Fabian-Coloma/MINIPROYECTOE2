@@ -29,20 +29,43 @@ export function CartProvider({ children }) {
     }
   };
 
-  // --- NUEVA FUNCION: Eliminar del carrito ---
   const eliminarDelCarrito = (idProductoEliminar) => {
-    // Filtramos la lista: nos quedamos con todos los que NO tengan ese ID
     const carritoActualizado = carrito.filter((producto) => {
       return producto.id !== idProductoEliminar;
     });
-    
-    // Actualizamos el estado con la nueva lista
     setCarrito(carritoActualizado);
   };
 
-  // No olvides exportar la nueva función aquí abajo
+  const sumarCantidad = (id) => {
+    const carritoActualizado = carrito.map((item) => {
+      if (item.id === id) {
+        return { ...item, cantidad: item.cantidad + 1 };
+      }
+      return item;
+    });
+    setCarrito(carritoActualizado);
+  };
+
+  const restarCantidad = (id) => {
+    const producto = carrito.find((item) => item.id === id);
+    
+    if (producto.cantidad === 1) {
+      eliminarDelCarrito(id);
+    } else {
+    
+      const carritoActualizado = carrito.map((item) => {
+        if (item.id === id) {
+          return { ...item, cantidad: item.cantidad - 1 };
+        }
+        return item;
+      });
+      setCarrito(carritoActualizado);
+    }
+  };
+
   return (
-    <CartContext.Provider value={{ carrito, agregarAlCarrito, eliminarDelCarrito }}>
+  
+    <CartContext.Provider value={{ carrito, agregarAlCarrito, eliminarDelCarrito, sumarCantidad, restarCantidad }}>
       {children}
     </CartContext.Provider>
   );

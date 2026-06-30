@@ -1,10 +1,10 @@
 import { Link, useParams } from 'react-router-dom';
 
 export default function CategoryFilter() {
-  // Leemos la URL actual para saber qué botón pintar de azul
+  
   const { category } = useParams(); 
 
-  // Las 4 categorías exactas que existen en FakeStoreAPI
+  
   const listaCategorias = [
     "electronics",
     "jewelery",
@@ -14,7 +14,7 @@ export default function CategoryFilter() {
 
   return (
     <div className="flex flex-wrap gap-3 mb-8">
-      {/* Botón para ver todos los productos */}
+      
       <Link
         to="/"
         className={
@@ -26,7 +26,7 @@ export default function CategoryFilter() {
         All Products
       </Link>
 
-      {/* Generamos un botón por cada categoría de la lista */}
+      
       {listaCategorias.map((cat) => {
         let esActiva = category === cat;
 

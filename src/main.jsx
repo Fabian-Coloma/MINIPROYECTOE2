@@ -1,16 +1,19 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
-import { CartProvider } from './context/CartContext' // Importamos el proveedor
+import { CartProvider } from './context/CartContext'
+import { FavoritesProvider } from './context/FavoritesContext' // 1. Lo importamos
 import './index.css'
 import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-      {/* Envolvemos la App con el Proveedor del Carrito */}
       <CartProvider>
-        <App />
+        {/* 2. Envolvemos la App también con Favoritos */}
+        <FavoritesProvider> 
+          <App />
+        </FavoritesProvider>
       </CartProvider>
     </BrowserRouter>
   </StrictMode>,

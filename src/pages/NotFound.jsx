@@ -24,7 +24,6 @@ export default function Home() {
     );
   }
 
-  // Lógica de filtrado desglosada paso a paso
   let productosFiltrados = [];
 
   if (parametroBusqueda) {
@@ -35,7 +34,7 @@ export default function Home() {
       return tituloMinuscula.includes(busquedaMinuscula);
     });
   } else {
-    // Si no buscaron nada, la lista es igual a todos los productos
+  
     productosFiltrados = products;
   }
 

@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
 
 export default function Cart() {
-  // Extraemos también la función de eliminar
-  const { carrito, eliminarDelCarrito } = useContext(CartContext);
+  
+  const { carrito, sumarCantidad, restarCantidad } = useContext(CartContext);
 
   let totalPagar = 0;
   for (let i = 0; i < carrito.length; i++) {
@@ -37,24 +37,35 @@ export default function Cart() {
               <img src={producto.image} alt={producto.title} className="w-20 h-20 object-contain" />
               <div>
                 <h3 className="font-medium text-gray-900 max-w-sm">{producto.title}</h3>
-                <p className="text-blue-600 font-bold">${producto.price.toFixed(2)}</p>
-                <p className="text-gray-500 text-sm mt-1">Cantidad: {producto.cantidad}</p>
+                <p className="text-blue-600 font-bold mb-2">${producto.price.toFixed(2)}</p>
+                
+                
+                <div className="flex items-center gap-3 mt-1">
+                  <button 
+                    onClick={() => restarCantidad(producto.id)}
+                    className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-300 flex items-center justify-center font-bold text-gray-600 transition-colors"
+                  >
+                    -
+                  </button>
+                  <span className="font-semibold text-gray-900 w-4 text-center">
+                    {producto.cantidad}
+                  </span>
+                  <button 
+                    onClick={() => sumarCantidad(producto.id)}
+                    className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-300 flex items-center justify-center font-bold text-gray-600 transition-colors"
+                  >
+                    +
+                  </button>
+                </div>
+
               </div>
             </div>
 
-            {/* Contenedor del precio y el botón de eliminar */}
+           
             <div className="flex flex-col items-end w-full md:w-auto gap-2">
               <div className="text-xl font-bold text-gray-900">
                 ${(producto.price * producto.cantidad).toFixed(2)}
               </div>
-              
-              {/* Botón rojo para eliminar que llama a la función con el ID del producto */}
-              <button 
-                onClick={() => eliminarDelCarrito(producto.id)}
-                className="text-red-500 hover:text-red-700 text-sm font-medium transition-colors"
-              >
-                Eliminar producto
-              </button>
             </div>
 
           </div>
